@@ -4,6 +4,7 @@ module.exports = function (RED) {
     function AMapDistance(config) {
         RED.nodes.createNode(this, config);
 
+        let node = this;
         this.on('input', function (msg) {
             // src
             var src_longitude = config.src_dyn_longitude || msg.payload.src_dyn_longitude
@@ -34,7 +35,7 @@ module.exports = function (RED) {
             }).then(function (response) {
                 let data = response.data
                 let status = data['status']
-                if (status !== 1) {
+                if (status != 1) {
                     throw new Error(JSON.stringify(data))
                 }
 
@@ -44,12 +45,12 @@ module.exports = function (RED) {
                 payload.duration = result['duration']
                 msg.payload = payload
                 msg['data'] = data
-                this.send(msg)
+                node.send(msg)
             }).catch(function (error) {
                 payload.status = 0
                 msg.payload = payload
                 msg['data'] = error
-                this.send(msg)
+                node.send(msg)
             })
         });
 

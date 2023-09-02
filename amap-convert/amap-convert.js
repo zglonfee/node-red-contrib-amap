@@ -4,6 +4,7 @@ module.exports = function (RED) {
     function AMapConvert(config) {
         RED.nodes.createNode(this, config);
 
+        let node = this;
         this.on('input', function (msg) {
             // src
             var longitude = config.longitude || msg.payload.longitude
@@ -19,7 +20,7 @@ module.exports = function (RED) {
             }).then(function (response) {
                 var data = response.data
                 var status = data['status']
-                if (status !== 1) {
+                if (status != 1) {
                     throw new Error(JSON.stringify(data))
                 }
 
@@ -28,12 +29,12 @@ module.exports = function (RED) {
                 payload.longitude = locations[0]
                 payload.latitude = locations[1]
                 msg.payload = payload
-                this.send(msg)
+                node.send(msg)
             }).catch(function (error) {
                 payload.status = 0
                 msg.payload = payload
                 msg['data'] = error
-                this.send(msg)
+                node.send(msg)
             })
         });
     }
