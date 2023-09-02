@@ -1,0 +1,30 @@
+{
+  "name": "node-red-contrib-amap",
+  "version": "1.0.0",
+  "description": "node red node for amap",
+  "node-red": {
+    "nodes": {
+      "amap-distance": "amap-distance/amap-distance.js",
+      "amap-key": "amap-key/amap-key.js",
+      "amap-location": "amap-location/amap-location.js",
+      "amap-convert": "amap-convert/amap-convert.js"
+    }
+  },
+  "dependencies": {
+    "axios": ">=0.21.1"
+  },
+  "author": "Lonfee",
+  "bugs": {
+    "url": "https://github.com/zglonfee/node-red-contrib-amap/issues"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zglonfee/node-red-contrib-amap"
+  },
+  "keywords": [
+    "node-red",
+    "gaode",
+    "amap"
+  ]
+}

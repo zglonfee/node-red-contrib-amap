@@ -1,0 +1,10 @@
+{
+  "amap" : {
+    "key": {
+      "default_name": "高德API Key",
+      "name": "名称",
+      "key": "Key",
+      "get_key": "还没有高德地图的API Key？赶快点击这里去申请吧！"
+    }
+  }
+}

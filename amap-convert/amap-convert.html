@@ -1,0 +1,62 @@
+<script type="text/javascript">
+  RED.nodes.registerType('amap-convert',{
+    category: 'amap',
+    color: '#25A5F7',
+    defaults: {
+      name : {value:""},
+      amap_key: {value:"", type:"amap-key"},
+
+      coordsys: {value:""},
+      longitude: {value:""},
+      latitude: {value:""},
+    },
+    inputs:1,
+    outputs:1,
+    icon: "font-awesome/fa-refresh",
+    label: function() {
+      return this.name|| this._("amap.convert.name");
+    },
+    oneditprepare:function (){
+      $("#node-input-coordsys").typedInput({
+        types: [
+          {
+            value: "coordsys",
+            options: [
+              { value: "gps", label: "GPS"},
+              { value: "mapbar", label: "MapBar"},
+              { value: "baidu", label: "Baidu"},
+            ]
+          }
+        ]
+      })
+    }
+  });
+
+</script>
+
+<script type="text/html" data-template-name="amap-convert">
+  <div class="form-row">
+    <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="amap.common.name"></span></label>
+    <input type="text" id="node-input-name" data-i18n="[placeholder]amap.common.name" style="width: 70%">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-amap_key"><i class="fa fa-key"></i> <span data-i18n="amap.convert.key"></span></label>
+    <input type="text" id="node-input-amap_key" style="width: 70%">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-coordsys"><span data-i18n="amap.convert.coordsys"></span></label>
+    <input type="text" id="node-input-coordsys" style="width: 70%">
+  </div>
+
+  <div class="form-row">
+    <label for="node-input-longitude"><span data-i18n="amap.convert.longitude"></span></label>
+    <input type="text" id="node-input-longitude" placeholder="(msg.payload.longitude)" style="width: 70%">
+  </div>
+
+  <div class="form-row" >
+    <label for="node-input-latitude"><span data-i18n="amap.convert.latitude"></span></label>
+    <input type="text" id="node-input-latitude" placeholder="(msg.payload.latitude)" style="width: 70%">
+  </div>
+</script>

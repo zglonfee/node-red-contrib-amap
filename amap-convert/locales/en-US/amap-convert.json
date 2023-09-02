@@ -1,0 +1,16 @@
+{
+  "amap" : {
+    "convert": {
+      "name": "AMap convert",
+      "key": "AMap Key",
+      "location": "Location",
+
+      "coordsys": "Coord System",
+      "longitude": "Longitude",
+      "latitude": "Latitude"
+    },
+    "common": {
+      "name": "Name"
+    }
+  }
+}

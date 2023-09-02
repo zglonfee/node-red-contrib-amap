@@ -1,0 +1,151 @@
+<script type="text/javascript">
+    RED.nodes.registerType('amap-distance',{
+        category: 'amap',
+        color: '#25A5F7',
+        defaults: {
+            name : {value:""},
+            amap_key: {value:"", type:"amap-key"},
+
+            // src info
+            src_type: {value:""},
+            src_cfg: {value:"", type:"amap-location"},
+            src_dyn_longitude: {value:""},
+            src_dyn_latitude:{value:""},
+
+            // dest info
+            dest_type: {value:""},
+            dest_cfg: {value:"", type:"amap-location"},
+            dest_dyn_longitude: {value:""},
+            dest_dyn_latitude:{value:""},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-arrows-h",
+        label: function() {
+            return this.name|| this._("amap.distance.name");
+        },
+        oneditprepare:function (){
+            $("#node-input-dest_type").typedInput({
+                types: [
+                    {
+                        value: "dest type",
+                        options: [
+                            { value: "static", label: this._("amap.distance.location_type_static")},
+                            { value: "dynamic", label: this._("amap.distance.location_type_dynamic")},
+                        ]
+                    }
+                ]
+            })
+
+            $("#node-input-dest_type").on('change',function() {
+                if (this.value === 'dynamic') {
+                    $("#node-dynamic-dest").show();
+                    $("#node-static-dest").hide()
+                }
+                else {
+                    $("#node-dynamic-dest").hide();
+                    $("#node-static-dest").show()
+                }
+            });
+
+            $("#node-input-src_type").typedInput({
+                types: [
+                    {
+                        value: "src type",
+                        options: [
+                            { value: "static", label: this._("amap.distance.location_type_static")},
+                            { value: "dynamic", label: this._("amap.distance.location_type_dynamic")},
+                        ]
+                    }
+                ]
+            })
+
+            $("#node-input-src_type").on('change',function() {
+                if (this.value === 'dynamic') {
+                    $("#node-dynamic-src").show();
+                    $("#node-static-src").hide()
+                }
+                else {
+                    $("#node-dynamic-src").hide();
+                    $("#node-static-src").show()
+                }
+            });
+        }
+    });
+
+</script>
+
+<script type="text/html" data-template-name="amap-distance">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="amap.common.name"></span></label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]amap.common.name" style="width: 70%">
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-amap_key"><i class="fa fa-key"></i> <span data-i18n="amap.distance.key"></span></label>
+        <input type="text" id="node-input-amap_key" style="width: 70%">
+    </div>
+
+    <!-- src -->
+    <div>
+        <div class="form-row">
+            <label for="node-input-src_type"><i class="fa fa-map-marker"></i> <span data-i18n="amap.distance.src_type"></span></label>
+            <input type="text" id="node-input-src_type" style="width: 70%">
+        </div>
+
+        <div class="form-row" id="node-static-src">
+            <label></label>
+            <label for="node-input-src_cfg" style="width: 20%"><span data-i18n="amap.distance.location"></span></label>
+            <input type="text" id="node-input-src_cfg" style="width: 50%">
+        </div>
+
+        <div id="node-dynamic-src">
+            <div class="form-row">
+                <label></label>
+                <label for="node-input-src_dyn_longitude" style="width: 20%"><span data-i18n="amap.distance.src_dyn_longitude"></span></label>
+                <input type="text" id="node-input-src_dyn_longitude" placeholder="(msg.payload.longitude_direction)" style="width: 50%">
+            </div>
+
+            <div class="form-row" >
+                <label></label>
+                <label for="node-input-src_dyn_latitude" style="width: 20%"><span data-i18n="amap.distance.src_dyn_latitude"></span></label>
+                <input type="text" id="node-input-src_dyn_latitude" placeholder="(msg.payload.latitude_direction)" style="width: 50%">
+            </div>
+        </div>
+    </div>
+
+    <!-- dest -->
+    <div>
+        <div class="form-row">
+            <label for="node-input-dest_type"><i class="fa fa-map-marker"></i> <span data-i18n="amap.distance.dest_type"></span></label>
+            <input type="text" id="node-input-dest_type" style="width: 70%">
+        </div>
+
+        <div class="form-row" id="node-static-dest">
+            <label></label>
+            <label for="node-input-dest_cfg" style="width: 20%"><span data-i18n="amap.distance.location"></span></label>
+            <input type="text" id="node-input-dest_cfg" style="width: 50%">
+        </div>
+
+        <div id="node-dynamic-dest">
+            <div class="form-row">
+                <label></label>
+                <label for="node-input-dest_dyn_longitude" style="width: 20%"><span data-i18n="amap.distance.dest_dyn_longitude"></span></label>
+                <input type="text" id="node-input-dest_dyn_longitude" placeholder="(msg.payload.longitude_direction)" style="width: 50%">
+            </div>
+
+            <div class="form-row" >
+                <label></label>
+                <label for="node-input-dest_dyn_latitude" style="width: 20%"><span data-i18n="amap.distance.dest_dyn_latitude"></span></label>
+                <input type="text" id="node-input-dest_dyn_latitude" placeholder="(msg.payload.latitude_direction)" style="width: 50%">
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/html" data-help-name="amap-distance">
+    <p>配置高德key</p>
+    <p>按照要求填写经纬度</p>
+    <p>行驶方式只可以选择一个,选择多个第一个生效</p>
+</script>

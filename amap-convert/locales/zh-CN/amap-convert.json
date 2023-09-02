@@ -1,0 +1,16 @@
+{
+  "amap" : {
+    "convert": {
+      "name": "高德坐标转换",
+      "key": "高德Key",
+      "location": "位置",
+
+      "coordsys": "原坐标系",
+      "longitude": "经度",
+      "latitude": "纬度"
+    },
+    "common": {
+      "name": "名称"
+    }
+  }
+}

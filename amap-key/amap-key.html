@@ -1,0 +1,46 @@
+<script type="text/javascript">
+  function isEmptyStr(s) {
+    return s === undefined || s === null || s === '' || s.trim() === '';
+  }
+
+  RED.nodes.registerType('amap-key',{
+    category: 'config',
+    defaults: {
+      name : {value:"",required:true},
+      amap_key : {value:"", required:true},
+    },
+    label: function() {
+      return this.name;
+    },
+
+    oneditprepare:function () {
+      $("#node-config-input-amap_key").on('change',function() {
+        if (isEmptyStr(this.value)) {
+          $("#node-key-tips").show();
+        }
+        else {
+          $("#node-key-tips").hide();
+        }
+      });
+    }
+  });
+</script>
+
+<script type="text/html" data-template-name="amap-key">
+  <div class="form-row">
+    <label for="node-config-input-name"><i class="fa fa-tag"></i> <span data-i18n="amap.key.name"></span></label>
+    <input type="text" id="node-config-input-name">
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-amap_key"><i class="fa fa-key"></i> <span data-i18n="amap.key.key"></span></label>
+    <input type="text" id="node-config-input-amap_key">
+  </div>
+
+  <div class="form-row" id="node-key-tips">
+    <p style="text-align: center"><a href="https://lbs.amap.com/" target="_blank"><span data-i18n="amap.key.get_key"></span></a></p>
+  </div>
+</script>
+
+<script type="text/html" data-help-name="amap-key">
+  <p><span data-i18n="amap.key.help"></span></p>
+</script>

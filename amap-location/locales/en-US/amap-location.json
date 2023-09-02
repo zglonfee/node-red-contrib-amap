@@ -1,0 +1,10 @@
+{
+  "amap" : {
+    "location": {
+      "default_name": "Location Name",
+      "name": "Name",
+      "longitude": "Longitude",
+      "latitude": "Latitude"
+    }
+  }
+}

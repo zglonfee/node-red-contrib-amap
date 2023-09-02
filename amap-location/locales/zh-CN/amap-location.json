@@ -1,0 +1,10 @@
+{
+  "amap" : {
+    "location": {
+      "default_name": "位置 1",
+      "name": "名称",
+      "longitude": "经度",
+      "latitude": "纬度"
+    }
+  }
+}

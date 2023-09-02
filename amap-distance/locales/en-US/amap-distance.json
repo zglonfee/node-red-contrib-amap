@@ -1,0 +1,23 @@
+{
+  "amap" : {
+    "distance": {
+      "key": "AMap Key",
+      "name": "AMap Distance Calculate",
+      "location": "Location",
+
+      "src_type": "Source Location Type",
+      "src_dyn_longitude": "Source Longitude",
+      "src_dyn_latitude": "Source Latitude",
+
+      "dest_type": "Destination Location Type",
+      "dest_dyn_latitude": "Destination Latitude",
+      "dest_dyn_longitude": "Destination Longitude",
+
+      "location_type_static": "static location",
+      "location_type_dynamic": "dynamic location"
+    },
+    "common": {
+      "name": "Name"
+    }
+  }
+}

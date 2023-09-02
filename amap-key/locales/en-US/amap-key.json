@@ -1,0 +1,10 @@
+{
+  "amap" : {
+    "key": {
+      "default_name": "AMap API Key",
+      "name": "Name",
+      "key": "Key",
+      "get_key": "No key? Click here to get it now!"
+    }
+  }
+}
