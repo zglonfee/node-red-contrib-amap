@@ -73,6 +73,20 @@
         }
     });
 
+    function InitLocationInput(){
+        $("#node-input-src_type").typedInput({
+            types: [
+                {
+                    value: "src type",
+                    options: [
+                        { value: "static", label: this._("amap.distance.location_type_static")},
+                        { value: "dynamic", label: this._("amap.distance.location_type_dynamic")},
+                    ]
+                }
+            ]
+        })
+    }
+
 </script>
 
 <script type="text/html" data-template-name="amap-distance">
