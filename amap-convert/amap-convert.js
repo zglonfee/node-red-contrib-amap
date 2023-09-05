@@ -5,9 +5,32 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         let node = this;
+
+        function prepareValue(msg, fieldName){
+            console.log("Field name type")
+            console.log(typeof node[fieldName])
+            if(typeof node[fieldName] === "num")
+                return Number(node[fieldName]);
+
+            var property = "payload"
+            var output = msg[property];
+            if(typeof node.latitude !== "undefined"){
+                property = node.latitude;
+                try{
+                    output = RED.util.getMessageProperty(msg, node.latitude);
+                }
+                catch (err){
+                    output = undefined;
+                }
+            }
+
+            return output
+        }
+
         this.on('input', function (msg) {
             // src
-            var longitude = config.longitude || msg.payload.longitude
+            var longitude = prepareValue(msg, "longitude")
+            //config.longitude || msg.payload.longitude
             var latitude = config.latitude || msg.payload.latitude
             let coordsys = config.coordsys
             var location_str = `${longitude},${latitude}`

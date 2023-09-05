@@ -1,4 +1,17 @@
 <script type="text/javascript">
+
+  function InitTypeInput(node, typedField, saveType, typeName, valueName) {
+    typedField.typedInput({
+      default: "msg",
+      types: ['msg', "num"],
+      typeField: saveType
+    });
+
+    var property = !node[valueName] ? "payload" : node[valueName] + "";
+    typedField.typedInput('type', node[typeName]);
+    typedField.typedInput('value', property);
+  }
+
   RED.nodes.registerType('amap-convert',{
     category: 'amap',
     color: '#25A5F7',
@@ -8,7 +21,9 @@
 
       coordsys: {value:""},
       longitude: {value:""},
+      longitude_type:{value:undefined},
       latitude: {value:""},
+      latitude_type:{value:undefined},
     },
     inputs:1,
     outputs:1,
@@ -29,7 +44,20 @@
           }
         ]
       })
-    }
+
+      let longitude_type = $("#node-input-typed-longitude")
+      let longitude_save_type = $("#node-input-longitude_type")
+      InitTypeInput(this, longitude_type, longitude_save_type, "longitude_type", "longitude")
+
+      let latitude_type = $("#node-input-typed-latitude")
+      let latitude_save_type = $("#node-input-latitude_type")
+      InitTypeInput(this, latitude_type, latitude_save_type, "latitude_type", "latitude")
+    },
+
+    oneditsave: function() {
+      $("#node-input-longitude").val($("#node-input-typed-longitude").typedInput('value'));
+      $("#node-input-latitude").val($("#node-input-typed-latitude").typedInput('value'));
+    },
   });
 
 </script>
@@ -51,12 +79,16 @@
   </div>
 
   <div class="form-row">
-    <label for="node-input-longitude"><span data-i18n="amap.convert.longitude"></span></label>
-    <input type="text" id="node-input-longitude" placeholder="(msg.payload.longitude)" style="width: 70%">
+    <label for="node-input-typed-longitude"><span data-i18n="amap.convert.longitude"></span></label>
+    <input type="text" id="node-input-typed-longitude" style="width: 70%">
+    <input id="node-input-longitude" type="hidden">
+    <input id="node-input-longitude_type" type="hidden">
   </div>
 
   <div class="form-row" >
-    <label for="node-input-latitude"><span data-i18n="amap.convert.latitude"></span></label>
-    <input type="text" id="node-input-latitude" placeholder="(msg.payload.latitude)" style="width: 70%">
+    <label for="node-input-typed-latitude"><span data-i18n="amap.convert.latitude"></span></label>
+    <input type="text" id="node-input-typed-latitude" style="width: 70%">
+    <input id="node-input-latitude" type="hidden">
+    <input id="node-input-latitude_type" type="hidden">
   </div>
 </script>
