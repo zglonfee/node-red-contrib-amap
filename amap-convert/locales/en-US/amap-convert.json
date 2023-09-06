@@ -11,6 +11,10 @@
     },
     "common": {
       "name": "Name"
+    },
+    "error": {
+      "input_error": "Longitude or latitude is not right, please check your node config.",
+      "request_error": "Call AMap API error, Error code is : "
     }
   }
 }

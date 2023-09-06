@@ -28,7 +28,7 @@
             $("#node-input-dest_type").typedInput({
                 types: [
                     {
-                        value: "dest type",
+                        value: "dest_type",
                         options: [
                             { value: "static", label: this._("amap.distance.location_type_static")},
                             { value: "dynamic", label: this._("amap.distance.location_type_dynamic")},
@@ -70,6 +70,9 @@
                     $("#node-static-src").show()
                 }
             });
+
+            let locationRoot = $("#node-location")
+            CreateLocationStruct(this, locationRoot)
         }
     });
 
@@ -87,6 +90,71 @@
         })
     }
 
+    function CreateLocationStruct(node, locationRoot){
+        var strName = node._("amap.common.name");
+        var strType = node._("amap.distance.src_type");
+        var strLocation = node._("amap.distance.location")
+        var strLongitude = node._("amap.distance.longitude");
+        var strLatitude = node._("amap.distance.latitude");
+
+        let fragment = document.createDocumentFragment();
+        var rowType = $('<div/>',{class:"form-row"}).appendTo(fragment);
+        var rowStatic = $('<div/>',{class:"form-row",id:"node-static-src"}).appendTo(fragment);
+        var rowDynamic = $('<div/>',{class:"form-row",id:"node-dynamic-src"}).appendTo(fragment);
+
+        // type
+        var rowType_Label = $('<label><label/>').appendTo(rowType);
+        $('<i></i>', {class:"fa fa-map-marker"}).appendTo(rowType_Label);
+        $('<span>').text(" ").appendTo(rowType_Label);
+        $('<span>').text(strType).appendTo(rowType_Label);
+        var eleType = $('<input type="text" class="node-input-type" style="width: 70%">').appendTo(rowType);
+
+        // static
+        $('<label for="node-input-src_cfg"><label/>').appendTo(rowStatic);
+        var rowStatic_Label = $('<label><label/>', {style:"width: 20%"}).appendTo(rowStatic);
+        $('<span>').text(strLocation).appendTo(rowStatic_Label);
+        var locationCfg = $('<input type="text" id="node-input-src_cfg" style="width: 50%">').appendTo(rowStatic);
+        //console.log(locationCfg.typedInput("type"));
+        //locationCfg.typedInput({type: "amap-location"})
+
+        // dynamic
+        var rowDyn_Longitude = $('<div/>',{class:"form-row"}).appendTo(rowDynamic);
+        $('<label><label/>').appendTo(rowDyn_Longitude);
+        var rowDyn_LongitudeLabel = $('<label><label/>', {style:"width: 20%"}).appendTo(rowDyn_Longitude);
+        $('<span>').text(strLongitude).appendTo(rowDyn_LongitudeLabel);
+        var dynLongitude = $('<input type="text" class="node-input-type" style="width: 50%">').appendTo(rowDyn_Longitude);
+
+        var rowDyn_Latitude = $('<div/>',{class:"form-row"}).appendTo(rowDynamic);
+        $('<label><label/>').appendTo(rowDyn_Latitude);
+        var rowDyn_LatitudeLabel = $('<label><label/>', {style:"width: 20%"}).appendTo(rowDyn_Latitude);
+        $('<span>').text(strLatitude).appendTo(rowDyn_LatitudeLabel);
+        var dynLatitude = $('<input type="text" class="node-input-type" style="width: 50%">').appendTo(rowDyn_Latitude);
+
+        eleType.typedInput({
+                types: [
+                    {
+                        value: "static",
+                        options: [
+                            { value: "static", label: node._("amap.distance.location_type_static")},
+                            { value: "dynamic", label: node._("amap.distance.location_type_dynamic")},
+                        ]
+                    }
+                ]
+            })
+            
+        eleType.on('change',function() {
+                if (this.value === 'dynamic') {
+                    rowDynamic.show();
+                    rowStatic.hide()
+                }
+                else {
+                    rowDynamic.hide();
+                    rowStatic.show()
+                }
+            });
+        locationRoot.append(fragment)
+    }
+
 </script>
 
 <script type="text/html" data-template-name="amap-distance">
@@ -100,66 +168,7 @@
         <input type="text" id="node-input-amap_key" style="width: 70%">
     </div>
 
-    <!-- src -->
-    <div>
-        <div class="form-row">
-            <label for="node-input-src_type"><i class="fa fa-map-marker"></i> <span data-i18n="amap.distance.src_type"></span></label>
-            <input type="text" id="node-input-src_type" style="width: 70%">
-        </div>
+    <div class="form-row" id="node-location">
 
-        <div class="form-row" id="node-static-src">
-            <label></label>
-            <label for="node-input-src_cfg" style="width: 20%"><span data-i18n="amap.distance.location"></span></label>
-            <input type="text" id="node-input-src_cfg" style="width: 50%">
-        </div>
-
-        <div id="node-dynamic-src">
-            <div class="form-row">
-                <label></label>
-                <label for="node-input-src_dyn_longitude" style="width: 20%"><span data-i18n="amap.distance.src_dyn_longitude"></span></label>
-                <input type="text" id="node-input-src_dyn_longitude" placeholder="(msg.payload.longitude)" style="width: 50%">
-            </div>
-
-            <div class="form-row" >
-                <label></label>
-                <label for="node-input-src_dyn_latitude" style="width: 20%"><span data-i18n="amap.distance.src_dyn_latitude"></span></label>
-                <input type="text" id="node-input-src_dyn_latitude" placeholder="(msg.payload.latitude)" style="width: 50%">
-            </div>
-        </div>
     </div>
-
-    <!-- dest -->
-    <div>
-        <div class="form-row">
-            <label for="node-input-dest_type"><i class="fa fa-map-marker"></i> <span data-i18n="amap.distance.dest_type"></span></label>
-            <input type="text" id="node-input-dest_type" style="width: 70%">
-        </div>
-
-        <div class="form-row" id="node-static-dest">
-            <label></label>
-            <label for="node-input-dest_cfg" style="width: 20%"><span data-i18n="amap.distance.location"></span></label>
-            <input type="text" id="node-input-dest_cfg" style="width: 50%">
-        </div>
-
-        <div id="node-dynamic-dest">
-            <div class="form-row">
-                <label></label>
-                <label for="node-input-dest_dyn_longitude" style="width: 20%"><span data-i18n="amap.distance.dest_dyn_longitude"></span></label>
-                <input type="text" id="node-input-dest_dyn_longitude" placeholder="(msg.payload.longitude_direction)" style="width: 50%">
-            </div>
-
-            <div class="form-row" >
-                <label></label>
-                <label for="node-input-dest_dyn_latitude" style="width: 20%"><span data-i18n="amap.distance.dest_dyn_latitude"></span></label>
-                <input type="text" id="node-input-dest_dyn_latitude" placeholder="(msg.payload.latitude_direction)" style="width: 50%">
-            </div>
-        </div>
-    </div>
-</script>
-
-
-<script type="text/html" data-help-name="amap-distance">
-    <p>配置高德key</p>
-    <p>按照要求填写经纬度</p>
-    <p>行驶方式只可以选择一个,选择多个第一个生效</p>
 </script>

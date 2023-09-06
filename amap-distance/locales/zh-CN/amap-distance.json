@@ -6,12 +6,10 @@
       "location": "位置",
 
       "src_type": "起始位置类型",
-      "src_dyn_longitude": "起始经度",
-      "src_dyn_latitude": "起始纬度",
-
       "dest_type": "目标位置类型",
-      "dest_dyn_latitude": "目标纬度",
-      "dest_dyn_longitude": "目标经度",
+
+      "longitude": "经度",
+      "latitude": "纬度",
 
       "location_type_static": "静态地址",
       "location_type_dynamic": "动态地址"

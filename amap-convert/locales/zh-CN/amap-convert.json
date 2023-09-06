@@ -11,6 +11,10 @@
     },
     "common": {
       "name": "名称"
+    },
+    "error": {
+      "input_error": "经纬度错误，请检查输入",
+      "request_error": "请求API错误，错误码："
     }
   }
 }

@@ -5,6 +5,18 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         let node = this;
+
+        function getLocationStr(){
+            var src_longitude = config.src_dyn_longitude || msg.payload.src_dyn_longitude
+            var src_latitude = config.src_dyn_latitude || msg.payload.src_dyn_latitude
+            if(config.src_type === 'static'){
+                var src_cfg = RED.nodes.getNode(config.src_cfg)
+                src_longitude = src_cfg.longitude;
+                src_latitude = src_cfg.latitude;
+            }
+            var src_location_str = `${src_longitude},${src_latitude}`
+        }
+
         this.on('input', function (msg) {
             // src
             var src_longitude = config.src_dyn_longitude || msg.payload.src_dyn_longitude

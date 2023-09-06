@@ -7,9 +7,8 @@
       typeField: saveType
     });
 
-    var property = !node[valueName] ? "payload" : node[valueName] + "";
     typedField.typedInput('type', node[typeName]);
-    typedField.typedInput('value', property);
+    typedField.typedInput('value', node[valueName]);
   }
 
   RED.nodes.registerType('amap-convert',{
@@ -20,10 +19,10 @@
       amap_key: {value:"", type:"amap-key"},
 
       coordsys: {value:""},
-      longitude: {value:""},
-      longitude_type:{value:undefined},
-      latitude: {value:""},
-      latitude_type:{value:undefined},
+      longitude: {value:"payload.longitude"},
+      longitude_type:{value:"msg"},
+      latitude: {value:"payload.latitude"},
+      latitude_type:{value:"msg"},
     },
     inputs:1,
     outputs:1,
