@@ -19,8 +19,8 @@ module.exports = function (RED) {
 
         this.on('input', function (msg) {
             // src
-            var src_longitude = config.src_dyn_longitude || msg.payload.src_dyn_longitude
-            var src_latitude = config.src_dyn_latitude || msg.payload.src_dyn_latitude
+            var src_longitude = RED.util.evaluateNodeProperty(config.src_dyn_longitude, config.src_dyn_longitude_type, msg);
+            var src_latitude = RED.util.evaluateNodeProperty(config.src_dyn_latitude, config.src_dyn_latitude_type, msg);
             if(config.src_type === 'static'){
                 var src_cfg = RED.nodes.getNode(config.src_cfg)
                 src_longitude = src_cfg.longitude;
@@ -29,8 +29,8 @@ module.exports = function (RED) {
             var src_location_str = `${src_longitude},${src_latitude}`
 
             // dest
-            var dest_longitude = config.dest_dyn_longitude || msg.payload.dest_dyn_longitude
-            var dest_latitude = config.dest_dyn_latitude || msg.payload.dest_dyn_latitude
+            var dest_longitude = RED.util.evaluateNodeProperty(config.dest_dyn_longitude, config.dest_dyn_longitude_type, msg);
+            var dest_latitude = RED.util.evaluateNodeProperty(config.dest_dyn_latitude, config.dest_dyn_latitude_type, msg);
             if(config.dest_type === 'static'){
                 var dest_cfg = RED.nodes.getNode(config.dest_cfg)
                 dest_longitude = dest_cfg.longitude;

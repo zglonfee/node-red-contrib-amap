@@ -8,8 +8,8 @@
       "src_type": "Source Location Type",
       "dest_type": "Destination Location Type",
 
-      "longitude": "Source Longitude",
-      "latitude": "Source Latitude",
+      "longitude": "Longitude",
+      "latitude": "Latitude",
 
       "location_type_static": "static location",
       "location_type_dynamic": "dynamic location"
