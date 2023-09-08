@@ -8,8 +8,8 @@ module.exports = function (RED) {
 
         this.on('input', function (msg, send, done) {
             // src
-            var longitude = RED.util.evaluateNodeProperty(config.longitude, config.longitude_type, msg);
-            var latitude = RED.util.evaluateNodeProperty(config.latitude, config.latitude_type, msg);
+            var longitude = RED.util.evaluateNodeProperty(config.longitude, config.longitude_type, node, msg);
+            var latitude = RED.util.evaluateNodeProperty(config.latitude, config.latitude_type, node, msg);
             let lt = typeof longitude;
             if (typeof longitude !== 'number' || typeof latitude !== 'number') {
                 node.error(RED._('amap.error.input_error'), msg);

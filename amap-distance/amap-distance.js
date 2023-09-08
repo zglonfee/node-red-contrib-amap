@@ -8,8 +8,8 @@ module.exports = function (RED) {
 
         this.on('input', function (msg, send, done) {
             // src
-            var src_longitude = RED.util.evaluateNodeProperty(config.src_dyn_longitude, config.src_dyn_longitude_type, msg);
-            var src_latitude = RED.util.evaluateNodeProperty(config.src_dyn_latitude, config.src_dyn_latitude_type, msg);
+            var src_longitude = RED.util.evaluateNodeProperty(config.src_dyn_longitude, config.src_dyn_longitude_type, node, msg);
+            var src_latitude = RED.util.evaluateNodeProperty(config.src_dyn_latitude, config.src_dyn_latitude_type, node, msg);
             if(config.src_type === 'static'){
                 var src_cfg = RED.nodes.getNode(config.src_cfg)
                 src_longitude = src_cfg.longitude;
@@ -18,8 +18,8 @@ module.exports = function (RED) {
             var src_location_str = `${src_longitude},${src_latitude}`
 
             // dest
-            var dest_longitude = RED.util.evaluateNodeProperty(config.dest_dyn_longitude, config.dest_dyn_longitude_type, msg);
-            var dest_latitude = RED.util.evaluateNodeProperty(config.dest_dyn_latitude, config.dest_dyn_latitude_type, msg);
+            var dest_longitude = RED.util.evaluateNodeProperty(config.dest_dyn_longitude, config.dest_dyn_longitude_type, node, msg);
+            var dest_latitude = RED.util.evaluateNodeProperty(config.dest_dyn_latitude, config.dest_dyn_latitude_type, node, msg);
             if(config.dest_type === 'static'){
                 var dest_cfg = RED.nodes.getNode(config.dest_cfg)
                 dest_longitude = dest_cfg.longitude;

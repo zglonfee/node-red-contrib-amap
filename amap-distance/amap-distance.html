@@ -17,6 +17,8 @@
 
         typedField.typedInput('type', node[typeName]);
         typedField.typedInput('value', node[valueName]);
+
+        console.log(typeName + " \t " + node[typeName]);
     }
 
     function InitLocationInput(node, typeEle, dynEle, staticEle){
@@ -79,7 +81,9 @@
                     return CheckCfgValidate(cfg, destType)
                 }},
             dest_dyn_longitude: {value:""},
+            dest_dyn_longitude_type: {value:"msg"},
             dest_dyn_latitude:{value:""},
+            dest_dyn_latitude_type: {value:"msg"},
         },
         inputs:1,
         outputs:1,
@@ -88,11 +92,11 @@
             return this.name|| this._("amap.distance.name");
         },
         oneditprepare:function (){
-            InitLocationInput(this, $("#node-input-dest_type"), $("#node-dynamic-dest"), $("#node-static-dest"), "node-input-src_dyn_longitude", "node-input-src_dyn_longitude")
+            InitLocationInput(this, $("#node-input-src_type"), $("#node-dynamic-src"), $("#node-static-src"))
             InitTypeInputByFieldName(this, "src_dyn_longitude")
             InitTypeInputByFieldName(this, "src_dyn_latitude")
 
-            InitLocationInput(this, $("#node-input-src_type"), $("#node-dynamic-src"), $("#node-static-src"))
+            InitLocationInput(this, $("#node-input-dest_type"), $("#node-dynamic-dest"), $("#node-static-dest"))
             InitTypeInputByFieldName(this, "dest_dyn_longitude")
             InitTypeInputByFieldName(this, "dest_dyn_latitude")
         },
