@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-amap",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "node red node for amap",
   "node-red": {
     "nodes": {
@@ -26,8 +26,5 @@
     "node-red",
     "gaode",
     "amap"
-  ],
-  "scripts": {
-    "node-red": "node C:\\Users\\lonfee\\AppData\\Roaming\\npm\\node_modules\\node-red\\red.js"
-  }
+  ]
 }
