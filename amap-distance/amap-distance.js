@@ -6,18 +6,7 @@ module.exports = function (RED) {
 
         let node = this;
 
-        function getLocationStr(){
-            var src_longitude = config.src_dyn_longitude || msg.payload.src_dyn_longitude
-            var src_latitude = config.src_dyn_latitude || msg.payload.src_dyn_latitude
-            if(config.src_type === 'static'){
-                var src_cfg = RED.nodes.getNode(config.src_cfg)
-                src_longitude = src_cfg.longitude;
-                src_latitude = src_cfg.latitude;
-            }
-            var src_location_str = `${src_longitude},${src_latitude}`
-        }
-
-        this.on('input', function (msg) {
+        this.on('input', function (msg, send, done) {
             // src
             var src_longitude = RED.util.evaluateNodeProperty(config.src_dyn_longitude, config.src_dyn_longitude_type, msg);
             var src_latitude = RED.util.evaluateNodeProperty(config.src_dyn_latitude, config.src_dyn_latitude_type, msg);
@@ -40,32 +29,29 @@ module.exports = function (RED) {
 
             this.amap_key = RED.nodes.getNode(config.amap_key);
             let gaodeKey = this.amap_key.amap_key
-            var payload = {}
             axios({
                 method: 'get',
                 url: `https://restapi.amap.com/v3/distance?origins=${src_location_str}&destination=${dest_location_str}&key=${gaodeKey}&type=1`
             }).then(function (response) {
                 let data = response.data
-                let status = data['status']
-                if (status != 1) {
-                    throw new Error(JSON.stringify(data))
+                if (data.status != 1) {
+                    // has some error
+                    node.error(RED._('amap.error.request_error') + data.info, msg)
+                    if(done)
+                        done()
+                }else{
+                    var result = data['results'][0]
+                    if (typeof msg.payload !== 'object') {
+                        msg.payload = {}
+                    }
+                    msg.payload.distance = result['distance']
+                    msg.payload.duration = result['duration']
+                    node.send(msg)
+                    if(done)
+                        done()
                 }
-
-                var result = data['results'][0]
-                payload.status = 1
-                payload.distance = result['distance']
-                payload.duration = result['duration']
-                msg.payload = payload
-                msg['data'] = data
-                node.send(msg)
-            }).catch(function (error) {
-                payload.status = 0
-                msg.payload = payload
-                msg['data'] = error
-                node.send(msg)
             })
         });
-
     }
 
     RED.nodes.registerType("amap-distance", AMapDistance);

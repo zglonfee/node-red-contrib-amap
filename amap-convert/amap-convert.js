@@ -13,7 +13,8 @@ module.exports = function (RED) {
             let lt = typeof longitude;
             if (typeof longitude !== 'number' || typeof latitude !== 'number') {
                 node.error(RED._('amap.error.input_error'), msg);
-                done();
+                if(done)
+                    done()
                 return;
             }
 
@@ -28,7 +29,8 @@ module.exports = function (RED) {
                 if (data.status != 1) {
                     // has some error
                     node.error(RED._('amap.error.request_error') + data.info, msg)
-                    done()
+                    if(done)
+                        done()
                 } else {
                     var locations = data.locations.split(';')[0].split(',')
                     if (typeof msg.payload !== 'object') {
@@ -37,7 +39,8 @@ module.exports = function (RED) {
                     msg.payload.longitude = locations[0]
                     msg.payload.latitude = locations[1]
                     node.send(msg)
-                    done();
+                    if(done)
+                        done()
                 }
             });
         });

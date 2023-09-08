@@ -1,5 +1,8 @@
 <script type="text/javascript">
 
+    let STR_STATIC = "static";
+    let STR_DYNAMIC = "dynamic";
+
     function InitTypeInputByFieldName(node, fieldName) {
         let typedField = $(`#node-input-typed-${fieldName}`)
         let saveType = $(`#node-input-${fieldName}_type`)
@@ -22,15 +25,15 @@
                 {
                     value: "type",
                     options: [
-                        { value: "static", label: node._("amap.distance.location_type_static")},
-                        { value: "dynamic", label: node._("amap.distance.location_type_dynamic")},
+                        { value: STR_STATIC, label: node._("amap.distance.location_type_static")},
+                        { value: STR_DYNAMIC, label: node._("amap.distance.location_type_dynamic")},
                     ]
                 }
             ]
         })
 
         typeEle.on('change',function() {
-            if (this.value === 'dynamic') {
+            if (this.value === STR_DYNAMIC) {
                 dynEle.show();
                 staticEle.hide()
             }
@@ -42,9 +45,7 @@
     }
 
     function CheckCfgValidate(cfg, destType){
-        console.log(cfg + " \t " + destType);
-        return true;
-        if(destType === "dynamic")
+        if(destType === STR_DYNAMIC)
             return true;
 
         if(cfg === "" || cfg === "_ADD_")
@@ -64,7 +65,7 @@
             src_type: {value:""},
             src_cfg: {value:"", type:"amap-location", validate:function(cfg){
                     var srcType = $("#node-input-src_type").length ? $("#node-input-src_type").val() : this.src_type;
-                    CheckCfgValidate(cfg, srcType)
+                    return CheckCfgValidate(cfg, srcType)
                 }},
             src_dyn_longitude: {value:""},
             src_dyn_longitude_type: {value:"msg"},
@@ -75,7 +76,7 @@
             dest_type: {value:""},
             dest_cfg: {value:"", type:"amap-location", validate:function(cfg){
                     var destType = $("#node-input-dest_type").length ? $("#node-input-dest_type").val() : this.dest_type;
-                    CheckCfgValidate(cfg, destType)
+                    return CheckCfgValidate(cfg, destType)
                 }},
             dest_dyn_longitude: {value:""},
             dest_dyn_latitude:{value:""},

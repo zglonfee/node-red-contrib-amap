@@ -16,6 +16,9 @@
     },
     "common": {
       "name": "名称"
+    },
+    "error": {
+      "request_error": "调用高德API错误，错误码： "
     }
   }
 }

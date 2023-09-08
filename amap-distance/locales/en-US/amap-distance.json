@@ -16,6 +16,9 @@
     },
     "common": {
       "name": "Name"
+    },
+    "error": {
+      "request_error": "Call AMap API error, Error Code is : "
     }
   }
 }
