@@ -102,9 +102,11 @@
         },
 
         oneditsave: function() {
+            console.log("Save value")
             $("#node-input-src_dyn_longitude").val($("#node-input-typed-src_dyn_longitude").typedInput('value'));
             $("#node-input-src_dyn_latitude").val($("#node-input-typed-src_dyn_latitude").typedInput('value'));
 
+            let dest_long = $("#node-input-typed-dest_dyn_longitude").typedInput('value');
             $("#node-input-dest_dyn_longitude").val($("#node-input-typed-dest_dyn_longitude").typedInput('value'));
             $("#node-input-dest_dyn_latitude").val($("#node-input-typed-dest_dyn_latitude").typedInput('value'));
         },
